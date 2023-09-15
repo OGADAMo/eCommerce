@@ -1,5 +1,32 @@
-<?php require_once 'inc/header.php' ?>
+<?php 
+    require_once 'inc/header.php';
+    require_once 'app/classes/User.php';
 
+?>
+
+<?php 
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    $user = new User();
+
+    $result = $user->login($username, $password);
+
+    if (!$result) {
+        $_SESSION['message']['type'] = 'danger';          
+        $_SESSION['message']['text'] = 'Wrong Username or password';
+        header("location: login.php");
+        exit();
+    } 
+
+    header("location: index.php");
+    exit();
+
+} 
+
+?>
 <div class="row justify-content-center">
         <div class="col-lg-6">
             <h3 class="text-center py-5">Login</h3>
