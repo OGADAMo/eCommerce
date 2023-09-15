@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Database credentials
 $servername = "localhost"; // Change this to your MySQL server hostname
 $username = "root"; // Change this to your MySQL username
