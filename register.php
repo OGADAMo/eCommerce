@@ -1,6 +1,8 @@
 <?php
+require_once 'app/config/config.php';
 require_once 'app/classes/User.php';
-if ($_SESSION["REQUEST_METHOD"] == "POST") {
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $username = $_POST["username"];
     $email = $_POST["email"];
@@ -9,6 +11,17 @@ if ($_SESSION["REQUEST_METHOD"] == "POST") {
     $user = new User();
 
     $created = $user->create($name, $username, $email, $password);
+
+    if ($created) {
+        $_SESSION['message']['type'] = 'success';          
+        $_SESSION['message']['text'] = 'Uspjesna registracija naloga';
+        header("location: index.php");
+        exit();
+    } else {
+        $_SESSION['message']['type'] = 'danger';          
+        $_SESSION['message']['text'] = 'Error';
+        header("location: register.php");
+    }
 }
 
 ?>

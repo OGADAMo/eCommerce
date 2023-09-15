@@ -1,6 +1,12 @@
 <?php
 class User {
     protected $conn;
+
+    public function __construct() {
+        global $conn;
+        $this->conn = $conn;
+    }
+
     public function create($name, $username, $email, $password)  {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -12,7 +18,7 @@ class User {
         $result = $stmt->execute();
 
         if ($result) {
-            $_SESSION['user_id'] = $result-> $result->insert_id;
+            $_SESSION['user_id'] = $result->insert_id;
             return true;
         } else {
             return false;
