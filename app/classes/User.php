@@ -25,6 +25,30 @@ class User {
         }
     
     }
+
+    public function login($username, $password){
+        $sql = "SELECT user_id, password FROM users WHERE username = ?";
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+            
+        $stmt->execute();
+        $results = $stmt->get_result();
+                
+        if ($results->num_rows == 1) {
+            $user = $results->fetch_assoc();
+                    
+            // Verify the password
+            if (password_verify($password, $user['password'])) {
+                // Password is correct, set session or token, etc.
+                $_SESSION['user_id'] = $user['user_id'];
+                return true;
+
+            } else {
+                return false; // Password is incorrect
+            }
+        }
+    }
 }
 
 ?>
