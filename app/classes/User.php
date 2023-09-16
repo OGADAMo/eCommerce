@@ -18,7 +18,7 @@ class User {
         $result = $stmt->execute();
 
         if ($result) {
-            $_SESSION['user_id'] = $result->insert_id;
+            $_SESSION['user_id'] = $result;
             return true;
         } else {
             return false;
