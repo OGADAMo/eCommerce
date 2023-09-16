@@ -44,10 +44,22 @@ class User {
                 $_SESSION['user_id'] = $user['user_id'];
                 return true;
 
-            } else {
-                return false; // Password is incorrect
             }
         }
+
+        return false;
+    }
+
+    public function is_logged() {
+        if (isset($_SESSION['user_id'])) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function logout() {
+        unset($_SESSION['user_id']);
     }
 }
 

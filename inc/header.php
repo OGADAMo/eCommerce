@@ -1,4 +1,11 @@
-<?php require_once "app/config/config.php"; ?>
+<?php 
+
+require_once "app/config/config.php"; 
+require_once "app/classes/User.php";
+
+
+$user = new User();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,12 +29,21 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="register.php">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="login.php">Login</a>
-                        </li>
+                        <?php if(!$user->is_logged()) : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="register.php">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="login.php">Login</a>
+                            </li>
+                        <?php else: ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="my-orders.php">My Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="logout.php">Logout</a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                     
                 </div>
