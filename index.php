@@ -19,6 +19,7 @@ $products = $products->fetch_all();
                         Price: $<?php echo number_format($product['price'], 2); ?><br>
                         Size: <?php echo $product['size']; ?>
                     </p>
+                    <a href="product.php?product_id=<?php echo $product['product_id'] ?>" class="btn btn-primary">View Product</a>
                 </div>
             </div>
         </div>
