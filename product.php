@@ -1,9 +1,24 @@
 <?php
 require_once 'inc/header.php';
 require_once 'app/classes/Product.php';
+require_once 'app/classes/Cart.php';
 
 $product = new  Product();
 $product= $product->read($_GET['product_id']);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $product_id = $product["product_id"];
+    $user_id = $_SESSION['user_id'];
+
+    $cart = new Cart();
+    $cart->add_to_cart($user_id, $product_id);
+
+
+        $_SESSION['message']['type'] = 'success';          
+        $_SESSION['message']['text'] = 'Dodano u kosaricu';
+        header("location: cart.php");
+        exit();
+} 
 
 ?>
 
