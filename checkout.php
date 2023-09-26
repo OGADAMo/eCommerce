@@ -10,21 +10,29 @@ if(!$user->is_logged()){
 $cart = new Cart();
 $cart_item = $cart->get_cart_items();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $product_id = $product["product_id"];
-    $user_id = $_SESSION['user_id'];
-
-    $cart = new Cart();
-    $cart->add_to_cart($user_id, $product_id);
 
 
-        $_SESSION['message']['type'] = 'success';          
-        $_SESSION['message']['text'] = 'Dodano u kosaricu';
-        header("location: cart.php");
-        exit();
-} 
+
 ?>
-
+<form action="process_form.php" method="POST">
+    <div class="form-group mb-3">
+        <label for="country">Country</label>
+        <input type="text" class="form-control" id="country" name="country" required>
+    </div>
+    <div class="form-group mb-3">
+        <label for="city">City</label>
+        <input type="text" class="form-control" id="city" name="city" required>
+    </div>
+    <div class="form-group mb-3">
+        <label for="zip">Zip Code</label>
+        <input type="text" class="form-control" id="zip" name="zip" required>
+    </div>
+    <div class="form-group mb-3">
+        <label for="address">Adress</label>
+        <input type="text" class="form-control" id="address" name="address" required>
+    </div>
+        <button type="submit" class="btn btn-primary">Order</button>
+</form>
 
 <?php
 require_once 'inc/footer.php';
