@@ -1,6 +1,7 @@
 <?php
 require_once 'inc/header.php';
 require_once 'app/classes/Cart.php';
+require_once 'app/classes/Order.php';
 
 if(!$user->is_logged()){
     header("location: login.php");
@@ -8,13 +9,20 @@ if(!$user->is_logged()){
 }
 
 $cart = new Cart();
-$cart_item = $cart->get_cart_items();
+$cart_items = $cart->get_cart_items();
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $order = new Order();
+    $order = $order->create($cart_items);
 
+    if($order){
+
+    }
+} 
 
 
 ?>
-<form action="process_form.php" method="POST">
+<form action="" method="POST">
     <div class="form-group mb-3">
         <label for="country">Country</label>
         <input type="text" class="form-control" id="country" name="country" required>
