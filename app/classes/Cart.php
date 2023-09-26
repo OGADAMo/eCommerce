@@ -7,11 +7,11 @@ class Cart {
         $this->conn = $conn;
     }
 
-    public function add_to_cart($user_id, $product_id){
-        $sql = "INSERT INTO cart (user_id, product_id) VALUES (?, ?)";
+    public function add_to_cart($user_id, $product_id, $quantity){
+        $sql = "INSERT INTO cart (user_id, product_id, quantity) VALUES (?, ?, ?)";
         
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param("ii", $user_id, $product_id);
+        $stmt->bind_param("iis", $user_id, $product_id, $quantity);
             
         $stmt->execute();
         
@@ -20,7 +20,7 @@ class Cart {
     }
 
     public function get_cart_items(){
-        $sql = "SELECT p.product_id, p.name, p.price, p.size, p.image
+        $sql = "SELECT p.product_id, p.name, p.price, p.size, p.image, c.quantity
                 FROM cart c
                 INNER JOIN products p
                 ON c.product_id = p.product_id

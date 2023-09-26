@@ -8,12 +8,10 @@ if(!$user->is_logged()){
     exit();
 }
 
-$cart = new Cart();
-$cart_items = $cart->get_cart_items();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $order = new Order();
-    $order = $order->create($cart_items);
+    $order = $order->create();
 
     if($order){
 
@@ -36,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" class="form-control" id="zip" name="zip" required>
     </div>
     <div class="form-group mb-3">
-        <label for="address">Adress</label>
+        <label for="address">Address</label>
         <input type="text" class="form-control" id="address" name="address" required>
     </div>
         <button type="submit" class="btn btn-primary">Order</button>

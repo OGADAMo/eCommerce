@@ -9,15 +9,16 @@ $product= $product->read($_GET['product_id']);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $product_id = $product["product_id"];
     $user_id = $_SESSION['user_id'];
+    $quantity = $_POST['quantity'];
 
     $cart = new Cart();
-    $cart->add_to_cart($user_id, $product_id);
+    $cart->add_to_cart($user_id, $product_id, $quantity);
 
 
-        $_SESSION['message']['type'] = 'success';          
-        $_SESSION['message']['text'] = 'Dodano u kosaricu';
-        header("location: cart.php");
-        exit();
+    $_SESSION['message']['type'] = 'success';          
+    $_SESSION['message']['text'] = 'Dodano u kosaricu';
+    header("location: cart.php");
+    exit();
 } 
 
 ?>
@@ -32,10 +33,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p>Price: $<?php echo number_format($product['price'], 2); ?></p>
         <p>Size: <?php echo $product['size']; ?></p>
         <form action="" method="POST">
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" value="1" min="1">
+            </div>
             <button type="submit" class="btn btn-primary">Add to Cart</button>
         </form>
     </div>
 </div>
+
 
 
 <?php require_once 'inc/footer.php'; ?>
