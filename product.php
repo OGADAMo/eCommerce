@@ -42,6 +42,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </div>
 
-
-
 <?php require_once 'inc/footer.php'; ?>
